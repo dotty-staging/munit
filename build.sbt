@@ -58,7 +58,7 @@ val isPreScala213 = Set[Option[(Long, Long)]](Some((2, 11)), Some((2, 12)))
 val scala2Versions = List(scala211, scala212, scala213)
 val scalaVersions = scala2Versions ++ List(dotty)
 def isScala2(v: Option[(Long, Long)]): Boolean = v.exists(_._1 == 2)
-def isScala3(v: Option[(Long, Long)]): Boolean = v.exists(_._1 == 0)
+def isScala3(v: Option[(Long, Long)]): Boolean = v.exists(_._1 == 0) || v.exists(_._1 == 3)
 val isScalaJS = Def.setting[Boolean](
   SettingKey[Boolean]("scalaJSUseMainModuleInitializer").?.value.isDefined
 )
@@ -124,7 +124,7 @@ lazy val munit = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     },
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((0, _)) => Nil
+        case Some((0 | 3, _)) => Nil
         case _ =>
           List(
             "org.scala-lang" % "scala-reflect" % scalaVersion.value

@@ -5,7 +5,7 @@ import munit.internal.PlatformCompat
 class BaseSuite extends FunSuite {
   override def munitRunTest(options: TestOptions, body: => Any): Any = {
     def isDotty: Boolean =
-      BuildInfo.scalaVersion.startsWith("0.")
+      BuildInfo.scalaVersion.startsWith("0.") || BuildInfo.scalaVersion.startsWith("3.")
     def is213: Boolean =
       BuildInfo.scalaVersion.startsWith("2.13") || isDotty
     if (options.tags(NoDotty) && isDotty) {
