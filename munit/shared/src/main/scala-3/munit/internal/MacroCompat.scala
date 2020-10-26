@@ -11,7 +11,7 @@ object MacroCompat {
   }
 
   def locationImpl()(using qctx: QuoteContext): Expr[Location] = {
-    import qctx.tasty.{_, given _}
+    import qctx.tasty._
     val path = rootPosition.sourceFile.jpath.toString
     val startLine = rootPosition.startLine + 1
     '{ new Location(${Expr(path)}, ${Expr(startLine)}) }
@@ -22,9 +22,9 @@ object MacroCompat {
   }
 
   def clueImpl[T:Type](value: Expr[T])(using qctx: QuoteContext): Expr[Clue[T]] = {
-    import qctx.tasty.{_, given _}
+    import qctx.tasty._
     val source = value.unseal.pos.sourceCode
-    val valueType = implicitly[scala.quoted.Type[T]].show
+    val valueType = Type[T].show
     '{ new Clue(${Expr(source)}, $value, ${Expr(valueType)}) }
   }
 
