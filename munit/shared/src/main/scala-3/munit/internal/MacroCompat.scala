@@ -23,7 +23,7 @@ object MacroCompat {
 
   def clueImpl[T:Type](value: Expr[T])(using qctx: QuoteContext): Expr[Clue[T]] = {
     val source = value.unseal.pos.sourceCode
-    val valueType = Type[T].show
+    val valueType = Type.show[T]
     '{ new Clue(${Expr(source)}, $value, ${Expr(valueType)}) }
   }
 
