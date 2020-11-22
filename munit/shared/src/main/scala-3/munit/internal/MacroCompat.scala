@@ -10,7 +10,7 @@ object MacroCompat {
     inline implicit def generate: Location = ${ locationImpl() }
   }
 
-  def locationImpl()(using QuoteContext): Expr[Location] = {
+  def locationImpl()(using Quotes): Expr[Location] = {
     import qctx.reflect._
     val pos = Position.ofMacroExpansion
     val path = pos.sourceFile.jpath.toString
@@ -22,7 +22,7 @@ object MacroCompat {
     inline implicit def generate[T](value: T): Clue[T] = ${ clueImpl('value) }
   }
 
-  def clueImpl[T:Type](value: Expr[T])(using QuoteContext): Expr[Clue[T]] = {
+  def clueImpl[T:Type](value: Expr[T])(using Quotes): Expr[Clue[T]] = {
     import qctx.reflect._
     val source = Term.of(value).pos.sourceCode
     val valueType = Type.show[T]
