@@ -11,7 +11,7 @@ object MacroCompat {
   }
 
   def locationImpl()(using Quotes): Expr[Location] = {
-    import qctx.reflect._
+    import quotes.reflect._
     val pos = Position.ofMacroExpansion
     val path = pos.sourceFile.jpath.toString
     val startLine = pos.startLine + 1
@@ -23,7 +23,7 @@ object MacroCompat {
   }
 
   def clueImpl[T:Type](value: Expr[T])(using Quotes): Expr[Clue[T]] = {
-    import qctx.reflect._
+    import quotes.reflect._
     val source = Term.of(value).pos.sourceCode
     val valueType = Type.show[T]
     '{ new Clue(${Expr(source)}, $value, ${Expr(valueType)}) }
