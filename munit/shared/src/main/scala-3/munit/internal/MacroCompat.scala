@@ -24,7 +24,7 @@ object MacroCompat {
 
   def clueImpl[T: Type](value: Expr[T])(using Quotes): Expr[Clue[T]] = {
     import quotes.reflect._
-    val source = Term.of(value).pos.sourceCode
+    val source = Term.of(value).pos.sourceCode.get
     val valueType = Type.show[T]
     '{ new Clue(${Expr(source)}, $value, ${Expr(valueType)}) }
   }
