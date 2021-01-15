@@ -39,7 +39,7 @@ class TypeCheckSuite extends FunSuite {
         """|error:
            |value foobar is not a member of String, but could be made available as an extension method.
            |
-           |The following import might fix the problem:
+           |The following import might make progress towards fixing the problem:
            |
            |  import munit.Clue.generate
            |
