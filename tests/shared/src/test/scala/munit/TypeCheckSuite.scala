@@ -71,9 +71,6 @@ class TypeCheckSuite extends FunSuite {
         """|error: an identifier expected, but '=' found
            |val x: = 2
            |      ^
-           |error: Declaration of value x not allowed here: only classes can have declared but undefined members
-           |package munit
-           |   ^
            |""".stripMargin
     )
   )
