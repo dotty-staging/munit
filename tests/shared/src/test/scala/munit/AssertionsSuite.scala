@@ -59,26 +59,10 @@ class AssertionsSuite extends BaseSuite {
       compileErrors("assertEquals(List(1), Vector(1))"),
       if (isDotty)
         """|error:
-           |Can't compare these two types:
-           |  First type:  List[Int]
-           |  Second type: Vector[Int]
-           |Possible ways to fix this error:
-           |  Alternative 1: provide an implicit instance for Compare[List[Int], Vector[Int]]
-           |  Alternative 2: upcast either type into `Any` or a shared supertype.
-           |I found:
-           |
-           |    munit.Compare.compareSubtypeWithSupertype[List[Int], Vector[Int]](
-           |      /* missing */summon[List[Int] <:< Vector[Int]]
-           |    )
-           |
-           |But no implicit values were found that match type List[Int] <:< Vector[Int].
-           |
-           |The following import might make progress towards fixing the problem:
-           |
-           |  import munit.CustomCompare.fromCustomEquality
-           |
+           |missing argument for parameter compare of method assertEquals in trait Assertions: (implicit loc: munit.Location, compare: munit.Compare[List[Int], Vector[Int]]):
+           |  Unit
            |assertEquals(List(1), Vector(1))
-           |                               ^
+           |           ^
            |""".stripMargin
       else
         """|error:
@@ -106,25 +90,9 @@ class B {
 assertEquals(new A, new B)
       """),
       if (isDotty)
-        """|error:
-           |Can't compare these two types:
-           |  First type:  A
-           |  Second type: B
-           |Possible ways to fix this error:
-           |  Alternative 1: provide an implicit instance for Compare[A, B]
-           |  Alternative 2: upcast either type into `Any` or a shared supertype.
-           |I found:
-           |
-           |    munit.Compare.compareSubtypeWithSupertype[A, B](/* missing */summon[A <:< B])
-           |
-           |But no implicit values were found that match type A <:< B.
-           |
-           |The following import might make progress towards fixing the problem:
-           |
-           |  import munit.CustomCompare.fromCustomEquality
-           |
+        """|error: missing argument for parameter compare of method assertEquals in trait Assertions: (implicit loc: munit.Location, compare: munit.Compare[A, B]): Unit
            |assertEquals(new A, new B)
-           |                         ^
+           |           ^
            |""".stripMargin
       else
         """|error:
@@ -144,27 +112,9 @@ assertEquals(new A, new B)
     assertNoDiff(
       compileErrors("assertEquals('a', 'a'.toInt)"),
       if (isDotty)
-        """|error:
-           |Can't compare these two types:
-           |  First type:  Char
-           |  Second type: Int
-           |Possible ways to fix this error:
-           |  Alternative 1: provide an implicit instance for Compare[Char, Int]
-           |  Alternative 2: upcast either type into `Any` or a shared supertype.
-           |I found:
-           |
-           |    munit.Compare.compareSubtypeWithSupertype[Char, Int](
-           |      /* missing */summon[Char <:< Int]
-           |    )
-           |
-           |But no implicit values were found that match type Char <:< Int.
-           |
-           |The following import might make progress towards fixing the problem:
-           |
-           |  import munit.CustomCompare.fromCustomEquality
-           |
+        """|error: missing argument for parameter compare of method assertEquals in trait Assertions: (implicit loc: munit.Location, compare: munit.Compare[Char, Int]): Unit
            |assertEquals('a', 'a'.toInt)
-           |                           ^
+           |           ^
            |""".stripMargin
       else
         """|error:
@@ -195,26 +145,10 @@ assertEquals(new A, new B)
       compileErrors("assertEquals(None, Some(1))"),
       if (isDotty)
         """|error:
-           |Can't compare these two types:
-           |  First type:  None.type
-           |  Second type: Some[Int]
-           |Possible ways to fix this error:
-           |  Alternative 1: provide an implicit instance for Compare[None.type, Some[Int]]
-           |  Alternative 2: upcast either type into `Any` or a shared supertype.
-           |I found:
-           |
-           |    munit.Compare.compareSubtypeWithSupertype[None.type, Some[Int]](
-           |      /* missing */summon[None.type <:< Some[Int]]
-           |    )
-           |
-           |But no implicit values were found that match type None.type <:< Some[Int].
-           |
-           |The following import might make progress towards fixing the problem:
-           |
-           |  import munit.CustomCompare.fromCustomEquality
-           |
+           |missing argument for parameter compare of method assertEquals in trait Assertions: (implicit loc: munit.Location, compare: munit.Compare[None.type, Some[Int]]):
+           |  Unit
            |assertEquals(None, Some(1))
-           |                          ^
+           |           ^
            |""".stripMargin
       else
         """|error:
