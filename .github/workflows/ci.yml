@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
         with:
           java-version: "adopt@1.${{ matrix.java }}"
       - run: sbt +testsJVM/test plugin/test
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: sbt +testsJS/test
         env:
           GOOGLE_APPLICATION_CREDENTIALS:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: npm install
       - run: sbt +testsJS/test
         env:
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: sbt +testsNative/test
         env:
           GOOGLE_APPLICATION_CREDENTIALS:
@@ -60,7 +60,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: sbt +testsJVM/test
         shell: bash
         env:
@@ -72,20 +72,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: sbt mimaReportBinaryIssues
   scalafmt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: ./bin/scalafmt --check
   docs:
     name: Scalafix and Docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: olafurpg/setup-scala@v13
+      - uses: olafurpg/setup-scala@v14
       - run: sbt scalafixCheckAll
       - run: sbt docs/docusaurusCreateSite
         env:
