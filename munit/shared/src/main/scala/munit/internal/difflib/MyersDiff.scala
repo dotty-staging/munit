@@ -22,13 +22,13 @@ class MyersDiff[T](equalizer: Equalizer[T])
       orig: util.List[T],
       rev: util.List[T]
   ): munit.internal.difflib.Patch[T] = {
-    var path = _path
+    var path: PathNode|Null = _path
     val patch = new munit.internal.difflib.Patch[T]
-    if (path.isSnake) path = path.prev
+    if (path.nn.isSnake) path = path.nn.prev
     while (
       path != null &&
       path.prev != null &&
-      path.prev.j >= 0
+      path.prev.nn.j >= 0
     ) {
       if (path.isSnake)
         throw new IllegalStateException(
@@ -36,7 +36,7 @@ class MyersDiff[T](equalizer: Equalizer[T])
         )
       val i = path.i
       val j = path.j
-      path = path.prev
+      path = path.prev.nn
       val ianchor = path.i
       val janchor = path.j
       val original =
@@ -79,7 +79,7 @@ class MyersDiff[T](equalizer: Equalizer[T])
     val MAX = N + M + 1
     val size = 1 + 2 * MAX
     val middle = size / 2
-    val diagonal = new Array[PathNode](size)
+    val diagonal = new Array[PathNode|Null](size)
 
     diagonal(middle + 1) = new Snake(0, -1, null)
     var d = 0
@@ -89,13 +89,13 @@ class MyersDiff[T](equalizer: Equalizer[T])
         val kmiddle = middle + k
         val kplus = kmiddle + 1
         val kminus = kmiddle - 1
-        var prev: PathNode = null
+        var prev: PathNode|Null = null
         var i = 0
-        if ((k == -d) || (k != d && diagonal(kminus).i < diagonal(kplus).i)) {
-          i = diagonal(kplus).i
+        if ((k == -d) || (k != d && diagonal(kminus).nn.i < diagonal(kplus).nn.i)) {
+          i = diagonal(kplus).nn.i
           prev = diagonal(kplus)
         } else {
-          i = diagonal(kminus).i + 1
+          i = diagonal(kminus).nn.i + 1
           prev = diagonal(kminus)
         }
         diagonal(kminus) = null // no longer used
@@ -118,7 +118,7 @@ class MyersDiff[T](equalizer: Equalizer[T])
         }
         diagonal(kmiddle) = node
         if (i >= N && j >= M) {
-          return diagonal(kmiddle)
+          return diagonal(kmiddle).nn
         }
 
         k += 2

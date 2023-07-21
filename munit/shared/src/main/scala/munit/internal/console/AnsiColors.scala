@@ -16,28 +16,22 @@ object AnsiColors {
   val DarkGrey = "\u001B[90m"
 
   def c(s: String, colorSequence: String): String =
-    if (colorSequence == null) s
-    else colorSequence + s + Reset
+    colorSequence + s + Reset
 
   def filterAnsi(s: String): String = {
-    if (s == null) {
-      null
-    } else {
-      val len = s.length
-      val r = new java.lang.StringBuilder(len)
-      var i = 0
-      while (i < len) {
-        val c = s.charAt(i)
-        if (c == '\u001B') {
-          i += 1
-          while (i < len && s.charAt(i) != 'm') i += 1
-        } else {
-          r.append(c)
-        }
+    val len = s.length
+    val r = new java.lang.StringBuilder(len)
+    var i = 0
+    while (i < len) {
+      val c = s.charAt(i)
+      if (c == '\u001B') {
         i += 1
+        while (i < len && s.charAt(i) != 'm') i += 1
+      } else {
+        r.append(c)
       }
-      r.toString()
+      i += 1
     }
+    r.toString()
   }
-
 }

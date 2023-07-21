@@ -2,7 +2,7 @@ package munit
 
 class FailException(
     val message: String,
-    val cause: Throwable,
+    val cause: Throwable|Null,
     val isStackTracesEnabled: Boolean,
     val location: Location
 ) extends AssertionError(message, cause)
@@ -20,7 +20,7 @@ class FailException(
     copy(message = newMessage)
   def copy(
       message: String = this.message,
-      cause: Throwable = this.cause,
+      cause: Throwable|Null = this.cause,
       isStackTracesEnabled: Boolean = this.isStackTracesEnabled,
       location: Location = this.location
   ): FailException =

@@ -16,7 +16,7 @@ object StackTraces {
       new ju.IdentityHashMap[Throwable, java.lang.Boolean]()
     )
     def loop(e: Throwable): Unit = {
-      if (e != null && isVisited.add(e)) {
+      if (isVisited.add(e)) {
         val stack = e.getStackTrace()
         if (stack != null) {
           e.setStackTrace(filterCallStack(stack))

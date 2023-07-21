@@ -149,7 +149,7 @@ final class JUnitReporter(
       m: Int,
       framesInCommon: Int,
       t: Throwable,
-      testFileName: String
+      testFileName: String|Null
   ): Unit = {
     val m0 = m
     var m2 = m
@@ -198,22 +198,20 @@ final class JUnitReporter(
   private def logStackTraceAsCause(
       causedTrace: Array[StackTraceElement],
       t: Throwable,
-      testFileName: String
+      testFileName: String|Null
   ): Unit = {
-    if (t != null) {
-      val trace = t.getStackTrace
-      var m = trace.length - 1
-      var n = causedTrace.length - 1
-      while (m >= 0 && n >= 0 && trace(m) == causedTrace(n)) {
-        m -= 1
-        n -= 1
-      }
-      log(Error, "Caused by: " + t)
-      logStackTracePart(trace, m, trace.length - 1 - m, t, testFileName)
+    val trace = t.getStackTrace
+    var m = trace.length - 1
+    var n = causedTrace.length - 1
+    while (m >= 0 && n >= 0 && trace(m) == causedTrace(n)) {
+      m -= 1
+      n -= 1
     }
+    log(Error, "Caused by: " + t)
+    logStackTracePart(trace, m, trace.length - 1 - m, t, testFileName)
   }
 
-  private def findTestFileName(trace: Array[StackTraceElement]): String =
+  private def findTestFileName(trace: Array[StackTraceElement]): String|Null =
     trace
       .find(_.getClassName == taskDef.fullyQualifiedName)
       .map(_.getFileName)
@@ -221,7 +219,7 @@ final class JUnitReporter(
 
   private def stackTraceElementToString(
       e: StackTraceElement,
-      testFileName: String
+      testFileName: String|Null
   ): String = {
     val highlight = settings.color && {
       // This logic assumes that users have configured Scala.js sourcemaps.
