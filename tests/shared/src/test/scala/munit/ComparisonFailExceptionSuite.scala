@@ -7,7 +7,7 @@ import java.nio.file.Paths
 class ComparisonFailExceptionSuite extends BaseSuite {
   override val munitLines: Lines = new Lines {
     override def formatPath(location: Location): String = {
-      Paths.get(location.path).getFileName().toString()
+      Paths.get(location.path).getFileName.toString()
     }
   }
   test("comparison-failure") {

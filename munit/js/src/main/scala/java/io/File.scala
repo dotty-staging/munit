@@ -42,7 +42,7 @@ class File(path: String) {
     )
   def getPath: String =
     path
-  def exists(): Boolean =
+  def exists: Boolean =
     JSIO.exists(path)
   def isFile: Boolean =
     JSIO.isFile(path)
