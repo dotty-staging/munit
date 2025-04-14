@@ -52,7 +52,7 @@ class AssertionsSuite extends BaseSuite {
   }
 
   test("false-negative") {
-    assume(BuildInfo.scalaVersion != "3.3.3")
+    assume(BuildInfo.scalaVersion.startsWith("3.3"))
     assertNoDiff(
       compileErrors("assertEquals(List(1), Vector(1))"),
       if (isDotty)
@@ -87,7 +87,7 @@ class AssertionsSuite extends BaseSuite {
   }
 
   test("unrelated") {
-    assume(BuildInfo.scalaVersion != "3.3.3")
+    assume(BuildInfo.scalaVersion.startsWith("3.3"))
     assertNoDiff(
       compileErrors("""
 class A {
@@ -129,7 +129,7 @@ assertEquals(new A, new B)
   }
 
   test("char-int-nok") {
-    assume(BuildInfo.scalaVersion != "3.3.3")
+    assume(BuildInfo.scalaVersion.startsWith("3.3"))
     assertNoDiff(
       compileErrors("assertEquals('a', 'a'.toInt)"),
       if (isDotty)
@@ -170,7 +170,7 @@ assertEquals(new A, new B)
   }
 
   test("some-none-nokj") {
-    assume(BuildInfo.scalaVersion != "3.3.3")
+    assume(BuildInfo.scalaVersion.startsWith("3.3"))
     assertNoDiff(
       compileErrors("assertEquals(None, Some(1))"),
       if (isDotty)

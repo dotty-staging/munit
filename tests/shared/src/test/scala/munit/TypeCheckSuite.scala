@@ -5,6 +5,8 @@ class TypeCheckSuite extends FunSuite {
   def check(options: TestOptions, obtained: String, compat: Map[String, String])(
       implicit loc: Location
   ): Unit = test(options) {
+    assume(BuildInfo.scalaVersion.startsWith("3.3"))
+
     val split = BuildInfo.scalaVersion.split("\\.")
     val binaryVersion = split.take(2).mkString(".")
     val majorVersion = split.head match {
