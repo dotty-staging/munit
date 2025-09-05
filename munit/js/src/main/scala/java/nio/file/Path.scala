@@ -6,7 +6,7 @@ import java.lang.Iterable
 // obtained interface by experimentation on the JDK.
 trait Path extends Iterable[Path] {
   def isAbsolute: Boolean
-  def getRoot: Path
+  def getRoot: Path | Null
   def getFileName: Path
   def getParent: Path
   def getNameCount: Int

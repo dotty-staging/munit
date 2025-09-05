@@ -149,7 +149,7 @@ final class JUnitReporter(
       m: Int,
       framesInCommon: Int,
       t: Throwable,
-      testFileName: String
+      testFileName: String | Null
   ): Unit = {
     val m0 = m
     var m2 = m
@@ -198,7 +198,7 @@ final class JUnitReporter(
   private def logStackTraceAsCause(
       causedTrace: Array[StackTraceElement],
       t: Throwable,
-      testFileName: String
+      testFileName: String | Null
   ): Unit = {
     if (t != null) {
       val trace = t.getStackTrace
@@ -221,7 +221,7 @@ final class JUnitReporter(
 
   private def stackTraceElementToString(
       e: StackTraceElement,
-      testFileName: String
+      testFileName: String | Null
   ): String = {
     val highlight = settings.color && {
       // This logic assumes that users have configured Scala.js sourcemaps.

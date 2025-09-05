@@ -83,7 +83,7 @@ case class NodeNIOPath(filename: String) extends Path {
           "Path.getFileName() is only supported in Node.js"
         )
     }
-  override def getRoot: Path =
+  override def getRoot: Path | Null =
     if (!isAbsolute) null
     else NodeNIOPath(File.separator)
   override def normalize(): Path =
